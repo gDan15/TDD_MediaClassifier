@@ -1,5 +1,6 @@
 import media.Episode;
 import media.EpisodeInfo;
+import media.Movie;
 import media.MovieInfo;
 import media.Season;
 import media.TvShow;
@@ -33,7 +34,7 @@ public class Panel extends JPanel{
         JButton organiseSeries = new JButton("Start organise!");
         // Ajout de bouton --------------------------------------------------------------------------------------------
         
-        JButton organiseMovies = new JButton("Start organise!");
+        JButton organiseMovies = new JButton("Start organise movies!");
         
         // Ajout de bouton --------------------------------------------------------------------------------------------
         
@@ -112,22 +113,20 @@ public class Panel extends JPanel{
                 Path sourceDirectory = Paths.get(startPath.getText());
 
                 List<EpisodeInfo> episodes = null;
-                List<MovieInfo> movies = null;
+//                List<MovieInfo> movies = null;
                 try {
                 	List<List<Object>> found = new ArrayList<List<Object>>();
                 	found = FileMatcher.findMedia(sourceDirectory);
                     episodes = (List<EpisodeInfo>) (List<?>)found.get(0);
                     
-                    movies = (List<MovieInfo>) (List<?>)found.get(1);
+//                    movies = (List<MovieInfo>) (List<?>)found.get(1);
                 } catch (IOException e) {
                     System.out.println("There was a problem when reading the directory");
                     e.printStackTrace();
                 }
 
                 List<TvShow> list = MediaClassifier.buildFromRaw(episodes);
-                
-                
-                
+                         
                 int i = 1;
                 
                 
@@ -156,22 +155,36 @@ public class Panel extends JPanel{
         });
 
 //        
-//        organiseMovies.addActionListener(new ActionListener() {
-//            /**
-//             *
-//             * @param event
-//             *      "event" is the event of clicking on the start button which will initiate the organising.
-//             *      By clicking on the start button you initiate the organising and classifying methods.
-//             */
-//            public void actionPerformed(ActionEvent event) {
-//                //lancer l'organisation
-//                Path sourceDirectory = Paths.get(startPath.getText());
-//                try {
-//                	List<List<Object>> found = new ArrayList<List<Object>>();
-//                	found = FileMatcher.findMedia(sourceDirectory);
-//                }
-//            }
-//        });
+        organiseMovies.addActionListener(new ActionListener() {
+            /**
+             *
+             * @param event
+             *      "event" is the event of clicking on the start button which will initiate the organising.
+             *      By clicking on the start button you initiate the organising and classifying methods.
+             */
+            public void actionPerformed(ActionEvent event) {
+                //lancer l'organisation
+                Path sourceDirectory = Paths.get(startPath.getText());
+                List<MovieInfo> movies = null;
+                try {
+                	List<List<Object>> found = new ArrayList<List<Object>>();
+                	found = FileMatcher.findMedia(sourceDirectory);
+                	movies = (List<MovieInfo>) (List<?>)found.get(1);
+                }catch (IOException e) {
+                    System.out.println("There was a problem when reading the directory");
+                    e.printStackTrace();
+                }
+              //lancer l'organisation
+            	Path endDir = Paths.get(endPath.getText());
+                //Path pat = (Path) endPath;
+                DirectoryCreationVisitor directory = new DirectoryCreationVisitor(endDir);
+                
+                for(MovieInfo info : movies) {
+                	directory.visit(info);
+                	System.out.println(info.getMovieName());
+                }
+            }
+        });
 //        
         
         // adds the the labels, texts and fields to the displayed panel
