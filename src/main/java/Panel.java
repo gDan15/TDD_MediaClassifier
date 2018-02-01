@@ -180,7 +180,8 @@ public class Panel extends JPanel{
                 DirectoryCreationVisitor directory = new DirectoryCreationVisitor(endDir);
                 
                 for(MovieInfo info : movies) {
-                	directory.visit(info);
+                	Movie movie = new Movie(info.getFile(),info.getMovieName());
+                	directory.visit(movie);
                 	System.out.println(info.getMovieName());
                 }
             }

@@ -29,12 +29,10 @@ public class DirectoryCreationVisitor implements MediaVisitor {
         this.episode = episode.getNumber();
         String episodeName = this.tvShow + "S" + this.season + "E" + this.episode;
         String episodeExt = FilenameUtils.getExtension(episode.getFilename().toString());
-
         Path dest = this.destination
                 .resolve(tvShow)
                 .resolve("Season " + this.season)
                 .resolve(episodeName + "." + episodeExt);
-
         try {
             Files.copy(episode.getFilename(), dest, StandardCopyOption.REPLACE_EXISTING);
         } catch (FileAlreadyExistsException e) {
@@ -53,7 +51,6 @@ public class DirectoryCreationVisitor implements MediaVisitor {
         Path path = this.destination
                 .resolve(Paths.get(this.tvShow))
                 .resolve(Paths.get("Season " + this.season));
-
         if (Files.notExists(path)) {
             try {
                 Files.createDirectory(path);
@@ -61,7 +58,6 @@ public class DirectoryCreationVisitor implements MediaVisitor {
                 e.printStackTrace();
             }
         }
-
         for (Map.Entry<Integer, Episode> episodeEntry : season.getEpisodes().entrySet()) {
             Episode episode = episodeEntry.getValue();
             episode.accept(this);
@@ -91,11 +87,13 @@ public class DirectoryCreationVisitor implements MediaVisitor {
 
         this.movie = movie.getTitle();
         //String movieName = this.movie;
-        String movieExt = FilenameUtils.getExtension(this.movie);
-
+        String movieExt = FilenameUtils.getExtension(movie.getFilename().toString());
+        char space =" ".charAt(0);
+        if(this.movie.charAt(this.movie.length()-1) == space) {
+        	this.movie = this.movie.substring(0,this.movie.length() - 1);
+        }
         Path dest = this.destination
-                .resolve(this.movie)
-                .resolve("." + movieExt);
+                .resolve(this.movie + "." + movieExt);
 
         try {
             Files.copy(movie.getFilename(), dest, StandardCopyOption.REPLACE_EXISTING);

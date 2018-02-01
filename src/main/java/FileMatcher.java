@@ -60,7 +60,7 @@ public class FileMatcher {
                 episode = Integer.parseInt(epi.group(4));
             }
             name = capitalize(m.group(1).replaceAll("\\.", " "));
-
+            
         }
         return new EpisodeInfo(file, name, season, episode);
     }
@@ -73,9 +73,11 @@ public class FileMatcher {
         String name = "";
 
         if (m.find()) {
-
+        	
             name = capitalize(m.group(1).replaceAll("\\.", " "));
+            System.out.println("'"+name+"'");
         }
+        
         return new MovieInfo(file, name);
     }
     
@@ -86,6 +88,7 @@ public class FileMatcher {
         for (String l : words) {
             r += l.substring(0, 1).toUpperCase() + l.substring(1).toLowerCase() + " ";
         }
+        System.out.println("'"+r+"'");
         return r;
     }
 
