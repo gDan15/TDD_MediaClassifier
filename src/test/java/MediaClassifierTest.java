@@ -1,5 +1,4 @@
 import media.EpisodeInfo;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,7 +38,8 @@ public class MediaClassifierTest {
         Path dir = temp.newFolder("Torrents").toPath();
         Path file = Files.createDirectory(dir.resolve(String.format("The.Flash.2014.S0%sE%s.PROPER.1080p.HDTV.x264-CRAVERS[rarbg]", 1, 10)));
         EpisodeInfo tmp = new EpisodeInfo(file, "The Flash 2014 ", 1, 10);
-        List<EpisodeInfo> episodes = FileMatcher.findEpisodes(dir);
+        List<List<Object>> media = FileMatcher.findMedia(dir);
+        List<EpisodeInfo> episodes = (List<EpisodeInfo>) media[0][0];
         Assert.assertEquals(tmp.getTvShowName(), episodes.get(0).getTvShowName());
         Assert.assertEquals(tmp.getFile(), episodes.get(0).getFile());
         Assert.assertEquals(tmp.getEpisodeNumber(), episodes.get(0).getEpisodeNumber());
