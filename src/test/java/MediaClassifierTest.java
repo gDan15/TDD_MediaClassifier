@@ -52,7 +52,7 @@ public class MediaClassifierTest {
     public void shouldFindMovie() throws IOException{
     		Path dir = temp.newFolder("Movies").toPath();
     		Path file = Files.createDirectory(dir.resolve(String.format("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80")));
-    		MovieInfo tmp = new MovieInfo(file, "Le Regne Du Feu (reign Of Fire)");
+    		MovieInfo tmp = new MovieInfo(file, "Le Regne Du Feu (reign Of Fire) ");
     		List<List<Object>> media = FileMatcher.findMedia(dir);
     		List<MovieInfo> movie = (List<MovieInfo>) (List<?>) media.get(1);
     		Assert.assertEquals(tmp.getFile(),movie.get(0).getFile());
