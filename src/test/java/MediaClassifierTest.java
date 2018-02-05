@@ -1,4 +1,6 @@
 import media.EpisodeInfo;
+import media.MovieInfo;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,11 +41,22 @@ public class MediaClassifierTest {
         Path file = Files.createDirectory(dir.resolve(String.format("The.Flash.2014.S0%sE%s.PROPER.1080p.HDTV.x264-CRAVERS[rarbg]", 1, 10)));
         EpisodeInfo tmp = new EpisodeInfo(file, "The Flash 2014 ", 1, 10);
         List<List<Object>> media = FileMatcher.findMedia(dir);
-        List<EpisodeInfo> episodes = (List<EpisodeInfo>) media[0][0];
+        List<EpisodeInfo> episodes = (List<EpisodeInfo>) (List<?>) media.get(0);
         Assert.assertEquals(tmp.getTvShowName(), episodes.get(0).getTvShowName());
         Assert.assertEquals(tmp.getFile(), episodes.get(0).getFile());
         Assert.assertEquals(tmp.getEpisodeNumber(), episodes.get(0).getEpisodeNumber());
         Assert.assertEquals(tmp.getSeasonNumber(), episodes.get(0).getSeasonNumber());
         Assert.assertTrue(Files.exists(dir));
+    }
+    @Test
+    public void shouldFindMovie() throws IOException{
+    		Path dir = temp.newFolder("Movies").toPath();
+    		Path file = Files.createDirectory(dir.resolve(String.format("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80")));
+    		MovieInfo tmp = new MovieInfo(file, "Le Regne Du Feu (reign Of Fire)");
+    		List<List<Object>> media = FileMatcher.findMedia(dir);
+    		List<MovieInfo> movie = (List<MovieInfo>) (List<?>) media.get(1);
+    		Assert.assertEquals(tmp.getFile(),movie.get(0).getFile());
+    		Assert.assertEquals(tmp.getMovieName(),movie.get(0).getMovieName());
+    		Assert.assertTrue(Files.exists(dir));
     }
 }

@@ -15,7 +15,7 @@ public class MovieInfo {
     }
     
     public String getMovieName(){
-    	return movieName;
+    		return movieName;
     }
 }
 
