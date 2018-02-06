@@ -81,6 +81,9 @@ public class FileMatcher {
         return new MovieInfo(file, name);
     }
     
+    /**
+     * Creates a string with an uppercase first letter and a space at the end of the string 
+     */
     public static String capitalize(String s) {
         if (s.length() == 0) return s;
         String[] words = s.split("\\s");
@@ -88,7 +91,7 @@ public class FileMatcher {
         for (String l : words) {
             r += l.substring(0, 1).toUpperCase() + l.substring(1).toLowerCase() + " ";
         }
-        System.out.println("'"+r+"'");
+        System.out.println("' capitalize : " +r+"'");
         return r;
     }
 

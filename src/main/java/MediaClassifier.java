@@ -10,10 +10,12 @@ public class MediaClassifier {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Frame("Ultra good media classifying system"));
     }
-
+    
+    /**
+     * If the TvShow already exist then the episodes are added to the TvShow. If not, create the TvShow and add the episodes to it.
+     */
     public static List<TvShow> buildFromRaw(List<EpisodeInfo> episodeInfoList) {
         List<TvShow> list = new ArrayList<>();
-
         for (EpisodeInfo episodeInfo : episodeInfoList) {
             boolean found = false;
             for (TvShow tvShow : list) {
