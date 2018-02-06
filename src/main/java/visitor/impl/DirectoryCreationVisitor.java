@@ -13,7 +13,7 @@ import java.util.Map;
 import java.lang.String;
 
 /**
- * This class enables the creation a directory according to the type of media that has to be copied. 
+ * Enables the creation a directory according to the type of media that has to be copied. 
  * Depending of the media, a folder will be created while the code is executed.
  */
 public class DirectoryCreationVisitor implements MediaVisitor {
