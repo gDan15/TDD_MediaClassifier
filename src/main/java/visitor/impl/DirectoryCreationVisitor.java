@@ -98,9 +98,9 @@ public class DirectoryCreationVisitor implements MediaVisitor {
         }
         Path dest = this.destination
                 .resolve(this.movie + "." + movieExt);
-
         try {
             Files.copy(movie.getFilename(), dest, StandardCopyOption.REPLACE_EXISTING);
+            
         } catch (FileAlreadyExistsException e) {
             System.out.println("The file already exists: " + dest);
         } catch (IOException e) {

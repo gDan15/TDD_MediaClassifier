@@ -69,7 +69,7 @@ public class CreateCorrectFilesTest {
         Assert.assertTrue(Files.exists(epFile));
     }
     @Test
-    public void movieShouldBeCreated() throws IOException {
+    public void movieShouldBeCreatedMKV() throws IOException {
         Path dest = temp.newFolder("output").toPath();
         Path src = temp.newFolder("source").toPath();
         Path mov = src.resolve("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80.mkv");
@@ -77,12 +77,30 @@ public class CreateCorrectFilesTest {
         Files.createFile(mov);
         System.out.println(mov);
         Movie movie = new Movie(mov, "Le Regne Du Feu (reign Of Fire)");
-
+        
         DirectoryCreationVisitor visitor = new DirectoryCreationVisitor(dest);
         movie.accept(visitor);
-
-        Path movieDir = dest.resolve("Le Regne Du Feu (reign Of Fire)");
         
+        Path movieDir = dest.resolve("Le Regne Du Feu (reign Of Fire).mkv");
+        System.out.println(movieDir);
         Assert.assertTrue(Files.exists(movieDir));
     }
+    @Test
+    public void movieShouldBeCreatedAVI() throws IOException {
+        Path dest = temp.newFolder("output").toPath();
+        Path src = temp.newFolder("source").toPath();
+        Path mov = src.resolve("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80.avi");
+
+        Files.createFile(mov);
+        System.out.println(mov);
+        Movie movie = new Movie(mov, "Le Regne Du Feu (reign Of Fire)");
+        
+        DirectoryCreationVisitor visitor = new DirectoryCreationVisitor(dest);
+        movie.accept(visitor);
+        
+        Path movieDir = dest.resolve("Le Regne Du Feu (reign Of Fire).avi");
+        System.out.println(movieDir);
+        Assert.assertTrue(Files.exists(movieDir));
+    }
+
 }
