@@ -67,15 +67,13 @@ public class FileMatcher {
     
     public static MovieInfo newMovieInfo(Path file) {
     	//Check if film format is correct, the number between the dots represents the date. 
-    	//Example : Avengers.2012.HdMovie
+    	//Example : Avengers.2012.HdMovie.mkv
         Pattern p = Pattern.compile("(.+)\\.([12][0-9]{3})\\.(.+)");
         Matcher m = p.matcher(file.getFileName().toString());
         String name = "";
 
-        if (m.find()) {
-        	
+        if (m.find()) {        	
             name = capitalize(m.group(1).replaceAll("\\.", " "));
-            System.out.println("'"+name+"'");
         }
         
         return new MovieInfo(file, name);
@@ -91,7 +89,7 @@ public class FileMatcher {
         for (String l : words) {
             r += l.substring(0, 1).toUpperCase() + l.substring(1).toLowerCase() + " ";
         }
-        System.out.println("' capitalize : " +r+"'");
+//        System.out.println("' capitalize : " +r+"'");
         return r;
     }
 

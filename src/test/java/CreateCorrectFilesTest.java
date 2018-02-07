@@ -1,4 +1,5 @@
 import media.Episode;
+import media.Movie;
 import media.Season;
 import media.TvShow;
 import org.junit.Assert;
@@ -30,7 +31,7 @@ public class CreateCorrectFilesTest {
     @Test
     public void seasonDirectoryShouldBeCreated() throws IOException {
         Path dir = temp.newFolder("output").toPath();
-
+        
         TvShow show = new TvShow("Game Of Thrones");
         Season season = new Season(1);
         show.addSeason(season);
@@ -49,9 +50,7 @@ public class CreateCorrectFilesTest {
         Path dest = temp.newFolder("output").toPath();
         Path src = temp.newFolder("source").toPath();
         Path ep = src.resolve("Mr.Robot.S01E05.HDTV.x264-KILLERS[ettv].mkv");
-
         Files.createFile(ep);
-
         TvShow show = new TvShow("Mr Robot");
         Season season = new Season(1);
         show.addSeason(season);
@@ -68,5 +67,22 @@ public class CreateCorrectFilesTest {
         Assert.assertTrue(Files.exists(seasonDir));
         // System.out.println(Files.exists());
         Assert.assertTrue(Files.exists(epFile));
+    }
+    @Test
+    public void movieShouldBeCreated() throws IOException {
+        Path dest = temp.newFolder("output").toPath();
+        Path src = temp.newFolder("source").toPath();
+        Path mov = src.resolve("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80.mkv");
+
+        Files.createFile(mov);
+        System.out.println(mov);
+        Movie movie = new Movie(mov, "Le Regne Du Feu (reign Of Fire)");
+
+        DirectoryCreationVisitor visitor = new DirectoryCreationVisitor(dest);
+        movie.accept(visitor);
+
+        Path movieDir = dest.resolve("Le Regne Du Feu (reign Of Fire)");
+        
+        Assert.assertTrue(Files.exists(movieDir));
     }
 }

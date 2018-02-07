@@ -49,9 +49,9 @@ public class MediaClassifierTest {
         Assert.assertTrue(Files.exists(dir));
     }
     @Test
-    public void shouldFindMovie() throws IOException{
+    public void shouldFindMovie1() throws IOException{
     		Path dir = temp.newFolder("Movies").toPath();
-    		Path file = Files.createDirectory(dir.resolve(String.format("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80")));
+    		Path file = Files.createDirectory(dir.resolve(String.format("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80.mkv")));
     		MovieInfo tmp = new MovieInfo(file, "Le Regne Du Feu (reign Of Fire) ");
     		List<List<Object>> media = FileMatcher.findMedia(dir);
     		List<MovieInfo> movie = (List<MovieInfo>) (List<?>) media.get(1);
@@ -59,4 +59,14 @@ public class MediaClassifierTest {
     		Assert.assertEquals(tmp.getMovieName(),movie.get(0).getMovieName());
     		Assert.assertTrue(Files.exists(dir));
     }
+    public void shouldFindMovie2() throws IOException{
+		Path dir = temp.newFolder("Movies").toPath();
+		Path file = Files.createDirectory(dir.resolve(String.format("Le.Regne.du.Feu.(Reign.Of.Fire).2002.MULTi.1080p.Bluray.HDLight.x264-Zone80.avi")));
+		MovieInfo tmp = new MovieInfo(file, "Le Regne Du Feu (reign Of Fire) ");
+		List<List<Object>> media = FileMatcher.findMedia(dir);
+		List<MovieInfo> movie = (List<MovieInfo>) (List<?>) media.get(1);
+		Assert.assertEquals(tmp.getFile(),movie.get(0).getFile());
+		Assert.assertEquals(tmp.getMovieName(),movie.get(0).getMovieName());
+		Assert.assertTrue(Files.exists(dir));
+}
 }

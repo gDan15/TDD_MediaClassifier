@@ -12,7 +12,7 @@ public class MediaClassifier {
     }
     
     /**
-     * If the TvShow already exist then the episodes are added to the TvShow. If not, create the TvShow and add the episodes to it.
+     * If the TvShow already exist then the episodes are added to the TvShow. If not, creates the TvShow and add the episodes to it.
      */
     public static List<TvShow> buildFromRaw(List<EpisodeInfo> episodeInfoList) {
         List<TvShow> list = new ArrayList<>();

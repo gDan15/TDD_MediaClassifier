@@ -159,8 +159,8 @@ public class Panel extends JPanel{
             /**
              *
              * @param event
-             *      "event" is the event of clicking on the start button which will initiate the organising.
-             *      By clicking on the start button you initiate the organising and classifying methods.
+             *      "event" is the event of clicking on the start button which will initiate the organizing.
+             *      By clicking on the start button you initiate the organizing and classifying methods.
              */
             public void actionPerformed(ActionEvent event) {
                 //lancer l'organisation
@@ -182,7 +182,6 @@ public class Panel extends JPanel{
                 for(MovieInfo info : movies) {
                 	Movie movie = new Movie(info.getFile(),info.getMovieName());
                 	directory.visit(movie);
-                	System.out.println(info.getMovieName());
                 }
             }
         });
